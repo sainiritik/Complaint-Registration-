@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "483941778192",
+    "project_id": "ritik-2",
+    "storage_bucket": "ritik-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483941778192:android:944f73e9ca115ebdaf9b95",
+        "android_client_info": {
+          "package_name": "com.example.ritik_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvgMt7GqqWenDNiX5OWQrPxTLzM9N9m78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

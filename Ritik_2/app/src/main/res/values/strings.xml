@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Ritik_2</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="title_activity_saini">Saini</string>
+    <string name="title_activity_login1">Login1</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
 </resources>

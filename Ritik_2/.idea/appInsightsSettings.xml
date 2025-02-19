@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.ritik_2" />
+                  <option name="mobileSdkAppId" value="1:483941778192:android:944f73e9ca115ebdaf9b95" />
+                  <option name="projectId" value="ritik-2" />
+                  <option name="projectNumber" value="483941778192" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
