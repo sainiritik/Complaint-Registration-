@@ -22,4 +22,12 @@
         <color name="deep_orange">#FF5F09</color>
         <color name="bold_red">#FF3F00</color>
 
+    <color name="bittersweet">#FE6F5E</color>
+    <color name="aero">#00B9E8</color>
+    <color name="platinum">#E5E4E2</color>
+    <color name="emerald">#50C878</color>
+    <color name="snow">#FFFAFA</color>
+    <color name="ghostwhite">#F8F8FF</color>
+
+
 </resources>

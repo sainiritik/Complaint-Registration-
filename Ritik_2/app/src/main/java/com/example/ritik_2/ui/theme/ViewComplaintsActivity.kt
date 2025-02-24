@@ -69,6 +69,11 @@ fun ComplaintsListScreen() {
     val brightOrange = colorResource(id = R.color.bright_orange)
     val deepOrange = colorResource(id = R.color.deep_orange)
     val boldRed = colorResource(id = R.color.bold_red)
+    val emerald = colorResource(id = R.color.emerald)
+    val platinum = colorResource(id = R.color.platinum)
+    val bitterSweet = colorResource(id = R.color.bittersweet)
+    val aero = colorResource(id = R.color.aero)
+    val snow = colorResource(id = R.color.snow)
 
 
     fun loadComplaints() {
@@ -94,20 +99,20 @@ fun ComplaintsListScreen() {
         topBar = {
             TopAppBar(
                 title = { Text("📌 My Complaints", fontSize = 22.sp) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = warmGold, titleContentColor = offWhite)
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = platinum, titleContentColor = bitterSweet)
             )
         }
     ) { paddingValues ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(grayMuted)
+                .background(snow)
                 .padding(paddingValues)
                 .padding(16.dp),
             contentAlignment = Alignment.Center
         ) {
             if (isLoading) {
-                CircularProgressIndicator(color = Color(0xFF0D47A1))
+                CircularProgressIndicator(color = emerald)
             } else if (complaints.isEmpty()) {
                 Text("No complaints found!", fontSize = 18.sp, color = black)
             } else {
@@ -143,6 +148,11 @@ fun ComplaintCard(
     val brightOrange = colorResource(id = R.color.bright_orange)
     val deepOrange = colorResource(id = R.color.deep_orange)
     val boldRed = colorResource(id = R.color.bold_red)
+    val emerald = colorResource(id = R.color.emerald)
+    val platinum = colorResource(id = R.color.platinum)
+    val bitterSweet = colorResource(id = R.color.bittersweet)
+    val aero = colorResource(id = R.color.aero)
+    val snow = colorResource(id = R.color.snow)
 
     Box(
         modifier = Modifier
@@ -158,15 +168,15 @@ fun ComplaintCard(
     ) {
         Card(
             modifier = Modifier.fillMaxWidth().clickable { showUpdateDialog = true },
-            colors = CardDefaults.cardColors(containerColor = softTan),
+            colors = CardDefaults.cardColors(containerColor = offWhite),
             elevation = CardDefaults.cardElevation(6.dp)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(complaint.complainText, fontSize = 18.sp, color = Color.Black, fontWeight = FontWeight.Bold)
-                Text("📅 Date: $formattedDate", fontSize = 14.sp, color = Color.Gray)
-                Text("📌 Category: ${complaint.category}", fontSize = 14.sp, color = deepOrange)
-                Text("🔺 Urgency: ${complaint.urgency}", fontSize = 14.sp, color = deepOrange)
-                Text("📌 Status: ${complaint.status}", fontSize = 14.sp, color = brightOrange)
+                Text(complaint.complainText, fontSize = 18.sp, color = aero, fontWeight = FontWeight.Bold)
+                Text("Date: $formattedDate", fontSize = 14.sp, color = black)
+                Text("Category: ${complaint.category}", fontSize = 14.sp, color = black)
+                Text("Urgency: ${complaint.urgency}", fontSize = 14.sp, color = black)
+                Text("Status: ${complaint.status}", fontSize = 14.sp, color = black)
             }
         }
     }
@@ -202,8 +212,8 @@ fun DeleteComplaintDialog(
                 Text("Are you sure you want to delete this complaint?", fontSize = 16.sp)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text("📝 ${complaint.complainText}", fontSize = 14.sp, color = Color.Gray)
-                Text("📌 Status: ${complaint.status}", fontSize = 14.sp, color = Color(0xFF1976D2))
-                Text("🔺 Urgency: ${complaint.urgency}", fontSize = 14.sp, color = Color.Red)
+                Text("Status: ${complaint.status}", fontSize = 14.sp, color = Color(0xFF1976D2))
+                Text("Urgency: ${complaint.urgency}", fontSize = 14.sp, color = Color.Red)
             }
         },
         confirmButton = {
@@ -248,6 +258,12 @@ fun UpdateComplaintDialog(
     val brightOrange = colorResource(id = R.color.bright_orange)
     val deepOrange = colorResource(id = R.color.deep_orange)
     val boldRed = colorResource(id = R.color.bold_red)
+    val emerald = colorResource(id = R.color.emerald)
+    val platinum = colorResource(id = R.color.platinum)
+    val bitterSweet = colorResource(id = R.color.bittersweet)
+    val aero = colorResource(id = R.color.aero)
+    val snow = colorResource(id = R.color.snow)
+    val ghostwhite = colorResource(id = R.color.ghostwhite)
 
 
     AlertDialog(
@@ -263,7 +279,7 @@ fun UpdateComplaintDialog(
                 text = "Update Complaint",
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(bottom = 8.dp),
-                color = softTan
+                color = black
             )
         },
         text = {
@@ -275,10 +291,10 @@ fun UpdateComplaintDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 56.dp, max = 120.dp),
-                    textStyle = LocalTextStyle.current.copy(offWhite),
+                    textStyle = LocalTextStyle.current.copy(black),
                     colors = TextFieldDefaults.colors( // FIXED
-                        unfocusedContainerColor = Color.Transparent,
-                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = snow,
+                        focusedContainerColor = snow,
                         unfocusedTextColor = black,
                         focusedTextColor = black,
                         focusedIndicatorColor = brightOrange,
@@ -342,9 +358,9 @@ fun UpdateComplaintDialog(
                     updateComplaint(firestore, userId, complaint.id, newText, newStatus, newUrgency, onDismiss)
                 },
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Cyan)
+                colors = ButtonDefaults.buttonColors(containerColor = deepOrange)
             ) {
-                Text("Save", color = Color.White)
+                Text("Save", color = black)
             }
         },
         dismissButton = {
@@ -353,7 +369,7 @@ fun UpdateComplaintDialog(
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
             ) {
-                Text("Cancel", color = Color.White)
+                Text("Cancel", color = black)
             }
         }
     )
