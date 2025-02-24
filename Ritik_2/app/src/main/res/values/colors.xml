@@ -10,4 +10,16 @@
     <color name="light_blue_900">#FF01579B</color>
     <color name="textFieldColors">#0D47A1</color>
     <color name="outlinedTextFieldColors">#FFE1F5FE</color>
+        <color name="primaryColor">#3A1C71</color>
+        <color name="secondaryColor">#D76D77</color>
+        <color name="accentColor">#FFAF7B</color>
+        <color name="gray_muted">#80807E</color>
+        <color name="off_white">#FFFFFC</color>
+        <color name="warm_beige">#DFDBD0</color>
+        <color name="soft_tan">#BEB7A4</color>
+        <color name="warm_gold">#DF9B5B</color>
+        <color name="bright_orange">#FF7F11</color>
+        <color name="deep_orange">#FF5F09</color>
+        <color name="bold_red">#FF3F00</color>
+
 </resources>
