@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.*
@@ -19,8 +20,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.example.ritik_2.R
 import kotlinx.coroutines.delay
 
 @Composable
@@ -31,11 +34,25 @@ fun RegisterComplainScreen(
     val isDarkTheme = isSystemInDarkTheme()
     var complainText by remember { mutableStateOf("") }
     var isExpanded by remember { mutableStateOf(false) }
-    var selectedUrgency by remember { mutableStateOf("⚪ Normal") }
+    var selectedUrgency by remember { mutableStateOf("Normal") }
     var selectedCategory by remember { mutableStateOf("IT") }
     var showConfirmDialog by remember { mutableStateOf(false) }
     var showSuccessPopup by remember { mutableStateOf(false) }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val black = colorResource(id = R.color.black)
+    val grayMuted = colorResource(id = R.color.gray_muted)
+    val offWhite = colorResource(id = R.color.off_white)
+    val warmBeige = colorResource(id = R.color.warm_beige)
+    val softTan = colorResource(id = R.color.soft_tan)
+    val warmGold = colorResource(id = R.color.warm_gold)
+    val brightOrange = colorResource(id = R.color.bright_orange)
+    val deepOrange = colorResource(id = R.color.deep_orange)
+    val boldRed = colorResource(id = R.color.bold_red)
+    val emerald = colorResource(id = R.color.emerald)
+    val platinum = colorResource(id = R.color.platinum)
+    val bitterSweet = colorResource(id = R.color.bittersweet)
+    val aero = colorResource(id = R.color.aero)
+    val snow = colorResource(id = R.color.snow)
 
     Box(
         modifier = Modifier
@@ -50,10 +67,10 @@ fun RegisterComplainScreen(
                 .shadow(8.dp, RoundedCornerShape(16.dp))
                 .clickable { isExpanded = !isExpanded },
             shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = if (isDarkTheme) Color(0xFF333333) else Color.White)
+            colors = CardDefaults.cardColors(containerColor = snow)
         ) {
             Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("🚀 Submit Your Complaint", style = MaterialTheme.typography.headlineSmall, color = Color.Blue)
+                Text("🚀 Submit Your Complaint", style = MaterialTheme.typography.headlineSmall, color = bitterSweet)
 
                 Spacer(modifier = Modifier.height(12.dp))
 
@@ -65,8 +82,8 @@ fun RegisterComplainScreen(
                     keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions { keyboardController?.hide() },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color.Blue,
-                        unfocusedBorderColor = Color.LightGray,
+                        focusedBorderColor = emerald,
+                        unfocusedBorderColor = aero,
                         cursorColor = Color.Black
                     ),
                     shape = RoundedCornerShape(12.dp)
@@ -76,31 +93,51 @@ fun RegisterComplainScreen(
 
                 AnimatedVisibility(visible = isExpanded, enter = expandVertically(), exit = shrinkVertically()) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("Select Urgency:", style = MaterialTheme.typography.titleMedium)
+
+                        Text("Urgency", style = MaterialTheme.typography.bodyLarge, color = black)
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                            listOf("🔴 High", "🟡 Medium", "⚪ Normal").forEach { urgency ->
-                                Button(
+                            listOf("High", "Medium", "Normal").forEach { urgency ->
+                                FilterChip(
+                                    selected = selectedUrgency == urgency,
                                     onClick = { selectedUrgency = urgency },
-                                    colors = ButtonDefaults.buttonColors(containerColor = if (selectedUrgency == urgency) Color.Blue else Color.Gray)
-                                ) {
-                                    Text(urgency)
-                                }
+                                    label = { Text(urgency) },
+                                    leadingIcon = if (selectedUrgency == urgency) {
+                                        { Icon(Icons.Default.Check, contentDescription = null, tint = Color.White) }
+                                    } else null,
+                                    colors = FilterChipDefaults.filterChipColors( // FIXED
+                                        containerColor = softTan,
+                                        selectedContainerColor = offWhite,
+                                        labelColor = black,
+                                        selectedLabelColor = warmBeige
+                                    )
+                                )
+
                             }
                         }
 
                         Spacer(modifier = Modifier.height(12.dp))
 
-                        Text("Assign to Category:", style = MaterialTheme.typography.titleMedium)
+                        Text("Assign to Category", style = MaterialTheme.typography.bodyLarge, color = black)
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                            listOf("IT", "Others").forEach { category ->
-                                Button(
+                            listOf("IT", "HR", "Others").forEach { category ->
+                                FilterChip(
+                                    selected = selectedCategory == category,
                                     onClick = { selectedCategory = category },
-                                    colors = ButtonDefaults.buttonColors(containerColor = if (selectedCategory == category) Color.Blue else Color.Gray)
-                                ) {
-                                    Text(category)
-                                }
+                                    label = { Text(category) },
+                                    leadingIcon = if (selectedCategory == category) {
+                                        { Icon(Icons.Default.Check, contentDescription = null, tint = Color.White) }
+                                    } else null,
+                                    colors = FilterChipDefaults.filterChipColors( // FIXED
+                                        containerColor = softTan,
+                                        selectedContainerColor = offWhite,
+                                        labelColor = black,
+                                        selectedLabelColor = warmBeige
+                                    )
+                                )
+
                             }
                         }
+
                     }
                 }
 
