@@ -39,7 +39,7 @@ import java.util.Date
 data class Complaint(
     val id: String = "",
     val complainText: String = "",
-    val urgency: String = "⚪ Normal",
+    val urgency: String = "Normal",
     val status: String = "Open",
     val category: String = "General",
     val timestamp: Long = 0L
