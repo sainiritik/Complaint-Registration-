@@ -63,6 +63,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".MainActivityTest"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+
     </application>
 
 </manifest>

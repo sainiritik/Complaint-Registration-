@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
             1 -> startActivity(Intent(this, RegisterComplain::class.java))
             2 -> startActivity(Intent(this, ViewComplaintsActivity::class.java))
             // Optionally uncomment the below if you wish to handle the profile card click
-            // 3 -> startActivity(Intent(this, ProfileActivity::class.java))
+            3 -> startActivity(Intent(this, MainActivityTest::class.java))
         }
     }
 

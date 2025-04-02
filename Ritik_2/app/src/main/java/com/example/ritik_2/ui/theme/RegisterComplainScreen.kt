@@ -40,16 +40,10 @@ fun RegisterComplainScreen(
     var showSuccessPopup by remember { mutableStateOf(false) }
     val keyboardController = LocalSoftwareKeyboardController.current
     val black = colorResource(id = R.color.black)
-    val grayMuted = colorResource(id = R.color.gray_muted)
     val offWhite = colorResource(id = R.color.off_white)
     val warmBeige = colorResource(id = R.color.warm_beige)
     val softTan = colorResource(id = R.color.soft_tan)
-    val warmGold = colorResource(id = R.color.warm_gold)
-    val brightOrange = colorResource(id = R.color.bright_orange)
-    val deepOrange = colorResource(id = R.color.deep_orange)
-    val boldRed = colorResource(id = R.color.bold_red)
     val emerald = colorResource(id = R.color.emerald)
-    val platinum = colorResource(id = R.color.platinum)
     val bitterSweet = colorResource(id = R.color.bittersweet)
     val aero = colorResource(id = R.color.aero)
     val snow = colorResource(id = R.color.snow)
