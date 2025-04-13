@@ -108,5 +108,8 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.2.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
 
+    implementation("eu.agno3.jcifs:jcifs-ng:2.1.8")
+
+
     debugImplementation(libs.ui.tooling) // For debugging previews
 }

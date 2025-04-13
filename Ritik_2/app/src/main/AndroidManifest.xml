@@ -63,9 +63,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivityTest"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+        <activity android:name=".SmbConnectActivity"
+            android:exported="false" />
 
     </application>
 
