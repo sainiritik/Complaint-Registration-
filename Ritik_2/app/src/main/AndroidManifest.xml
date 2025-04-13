@@ -66,6 +66,9 @@
         <activity android:name=".SmbConnectActivity"
             android:exported="false" />
 
+        <activity android:name=".ui.theme.FileExplorerActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
