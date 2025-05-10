@@ -72,7 +72,9 @@ fun RegisterComplainScreen(
                     value = complainText,
                     onValueChange = { complainText = it },
                     placeholder = { Text("Describe your issue...") },
-                    modifier = Modifier.fillMaxWidth().height(120.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp),
                     keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions { keyboardController?.hide() },
                     colors = OutlinedTextFieldDefaults.colors(
@@ -98,14 +100,13 @@ fun RegisterComplainScreen(
                                     leadingIcon = if (selectedUrgency == urgency) {
                                         { Icon(Icons.Default.Check, contentDescription = null, tint = Color.White) }
                                     } else null,
-                                    colors = FilterChipDefaults.filterChipColors( // FIXED
+                                    colors = FilterChipDefaults.filterChipColors(
                                         containerColor = softTan,
                                         selectedContainerColor = offWhite,
                                         labelColor = black,
                                         selectedLabelColor = warmBeige
                                     )
                                 )
-
                             }
                         }
 
@@ -121,17 +122,15 @@ fun RegisterComplainScreen(
                                     leadingIcon = if (selectedCategory == category) {
                                         { Icon(Icons.Default.Check, contentDescription = null, tint = Color.White) }
                                     } else null,
-                                    colors = FilterChipDefaults.filterChipColors( // FIXED
+                                    colors = FilterChipDefaults.filterChipColors(
                                         containerColor = softTan,
                                         selectedContainerColor = offWhite,
                                         labelColor = black,
                                         selectedLabelColor = warmBeige
                                     )
                                 )
-
                             }
                         }
-
                     }
                 }
 
@@ -139,7 +138,10 @@ fun RegisterComplainScreen(
 
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                     Button(
-                        onClick = { complainText = ""; onResetClick() },
+                        onClick = {
+                            complainText = ""
+                            onResetClick()
+                        },
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
                     ) {
                         Icon(imageVector = Icons.Default.Delete, contentDescription = "Reset")
@@ -184,7 +186,7 @@ fun RegisterComplainScreen(
                             complainText = ""
                             showSuccessPopup = true
                         },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)), // Fresh Green Color
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
                             .padding(8.dp)
@@ -213,7 +215,6 @@ fun RegisterComplainScreen(
                 }
             )
         }
-
 
         if (showSuccessPopup) {
             LaunchedEffect(Unit) {

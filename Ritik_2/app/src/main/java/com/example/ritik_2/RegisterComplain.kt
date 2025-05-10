@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterComplain : ComponentActivity() {
-
     private val firestore = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
@@ -17,8 +16,12 @@ class RegisterComplain : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             RegisterComplainScreen(
-                onSaveClick = { complainText, urgency, category -> saveComplaint(complainText, urgency, category) },
-                onResetClick = {}
+                onSaveClick = { complainText, urgency, category ->
+                    saveComplaint(complainText, urgency, category)
+                },
+                onResetClick = {
+                    // You can add additional reset logic here if needed
+                }
             )
         }
     }
@@ -41,10 +44,13 @@ class RegisterComplain : ComponentActivity() {
             "urgency" to urgency,
             "category" to category,
             "status" to "Open",
-            "timestamp" to System.currentTimeMillis()
+            "timestamp" to System.currentTimeMillis(),
+            "userId" to user.uid,
+            "userEmail" to (user.email ?: "Unknown")
         )
 
-        firestore.collection("users").document(user.uid).collection("complaints")
+        firestore.collection("users").document(user.uid)
+            .collection("complaints")
             .add(data)
             .addOnSuccessListener {
                 Toast.makeText(this, "Complaint submitted successfully!", Toast.LENGTH_SHORT).show()
