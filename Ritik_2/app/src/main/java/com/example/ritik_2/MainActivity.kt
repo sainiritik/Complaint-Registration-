@@ -2,12 +2,25 @@ package com.example.ritik_2
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
+import com.example.ritik_2.modules.MainViewModel
+import com.example.ritik_2.modules.UserProfile
+import com.example.ritik_2.smb.SMBActivity
+import com.example.ritik_2.ui.theme.ui.theme.ITConnectTheme
 import com.example.ritik_2.ui.theme.MainScreen
-import com.example.ritik_2.ui.theme.Ritik_2Theme
 import com.example.ritik_2.ui.theme.ViewComplaintsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,55 +35,82 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        // Initialize ViewModel
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        // ✅ Redirect to Login if not logged in
+        // Check authentication status
         if (firebaseAuth.currentUser == null) {
             navigateToLogin()
             return
         }
 
+        // Load user data
+        loadUserData()
+
         setContent {
-            Ritik_2Theme {
-                MainScreen(
-                    onLogout = {
-                        firebaseAuth.signOut()
-                        navigateToLogin()
-                    },
-                    onCardClick = { cardId -> handleCardClick(cardId) }
-                )
+            ITConnectTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    // Use state holders from ViewModel
+                    var userProfile by remember { mutableStateOf<UserProfile?>(null) }
+                    var isLoading by remember { mutableStateOf(true) }
+
+                    // Update state when ViewModel data changes
+                    LaunchedEffect(Unit) {
+                        viewModel.userProfileState.observe(this@MainActivity) { profile ->
+                            userProfile = profile
+                        }
+                        viewModel.isLoadingState.observe(this@MainActivity) { loading ->
+                            isLoading = loading
+                        }
+                        viewModel.errorMessageState.observe(this@MainActivity) { errorMsg ->
+                            errorMsg?.let {
+                                Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
+                                viewModel.clearError()
+                            }
+                        }
+                    }
+
+                    MainScreen(
+                        userProfile = userProfile,
+                        isLoading = isLoading,
+                        onLogout = {
+                            firebaseAuth.signOut()
+                            navigateToLogin()
+                        },
+                        onCardClick = { cardId -> handleCardClick(cardId) },
+                        onProfileClick = { navigateToProfile() }
+                    )
+                }
             }
         }
     }
 
-    // Fetch User Details from Firestore
-    private fun getUserDetailsFromFirestore(userId: String, onSuccess: (String, String?) -> Unit, onFailure: (Exception) -> Unit) {
-        firestore.collection("users").document(userId)
-            .get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    val userName = document.getString("name") ?: "Unknown User"
-                    val userImageUrl = document.getString("imageUrl")
-                    onSuccess(userName, userImageUrl)
-                } else {
-                    onFailure(Exception("User not found"))
-                }
-            }
-            .addOnFailureListener { exception ->
-                onFailure(exception)
-            }
+    private fun loadUserData() {
+        viewModel.isLoadingState.value = true
+        firebaseAuth.currentUser?.uid?.let { userId ->
+            viewModel.loadUserProfile(userId)
+        } ?: run {
+            viewModel.setError("User not authenticated")
+            viewModel.isLoadingState.value = false
+        }
     }
 
     private fun handleCardClick(cardId: Int) {
         when (cardId) {
             1 -> startActivity(Intent(this, RegisterComplain::class.java))
             2 -> startActivity(Intent(this, ViewComplaintsActivity::class.java))
-            // Optionally uncomment the below if you wish to handle the profile card click
-            3 -> startActivity(Intent(this, SmbConnectActivity::class.java))
+            //3 -> startActivity(Intent(this, SettingsActivity::class.java))
+            //4 -> startActivity(Intent(this, HelpSupportActivity::class.java))
+            5 -> startActivity(Intent(this, SMBActivity::class.java))
+            //6 -> startActivity(Intent(this, TechResourcesActivity::class.java))
+            //7 -> startActivity(Intent(this, ProjectCollaborationActivity::class.java))
+            //8 -> startActivity(Intent(this, TechNewsActivity::class.java))
         }
     }
 
-    // ✅ Redirect to Login
     private fun navigateToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

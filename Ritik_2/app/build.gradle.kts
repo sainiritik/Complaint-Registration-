@@ -109,4 +109,30 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose.v261)
     implementation(libs.jcifs.ng)
     debugImplementation(libs.ui.tooling) // For debugging previews
+    implementation(libs.androidx.core.ktx.v1120)
+    implementation(libs.androidx.appcompat.v161)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v262)
+    implementation(libs.androidx.activity.compose.v181)
+
+    // Jetpack Compose
+    implementation(libs.androidx.compose.bom.v20231001)
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-extended")
+
+    // ViewModel with Composer
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    // Document File Provider
+    implementation("androidx.documentfile:documentfile:1.0.1")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // jCIFS for SMB functionality
+    implementation("eu.agno3.jcifs:jcifs-ng:2.1.9")  // For SMB/CIFS support
+
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.0")  // Use the version that matches your Compose version
 }

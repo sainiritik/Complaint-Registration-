@@ -2,8 +2,12 @@
 accompanistCoil = "0.15.0"
 activityComposeVersion = "1.x.x"
 agp = "8.5.1"
+androidxActivityCompose = "1.8.1"
 animation = "1.8.1"
+appcompatVersion = "1.6.1"
 coilCompose = "2.7.0"
+composeBomVersion = "2023.10.01"
+coreKtxVersion = "1.12.0"
 firebaseFirestoreKtxVersion = "25.1.4"
 jcifsNg = "2.1.10"
 kotlin = "1.9.0"
@@ -14,6 +18,7 @@ espressoCore = "3.6.1"
 appcompat = "1.7.0"
 lifecycleRuntimeCompose = "2.8.7"
 lifecycleRuntimeComposeVersion = "2.6.1"
+lifecycleRuntimeKtxVersion = "2.6.2"
 material = "1.12.0"
 activity = "1.9.2"
 constraintlayout = "2.1.4"
@@ -38,11 +43,16 @@ foundationAndroid = "1.7.0"
 
 [libraries]
 accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version.ref = "accompanistCoil" }
+androidx-activity-compose-v181 = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 androidx-activity-compose-v1xx = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
 androidx-animation = { module = "androidx.compose.animation:animation", version.ref = "animation" }
+androidx-appcompat-v161 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
+androidx-compose-bom-v20231001 = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-ktx-v1120 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
 androidx-lifecycle-runtime-compose-v261 = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeComposeVersion" }
+androidx-lifecycle-runtime-ktx-v262 = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-material3-v120 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
