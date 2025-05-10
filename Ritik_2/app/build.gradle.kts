@@ -99,16 +99,14 @@ dependencies {
     implementation(libs.androidx.activity.compose.v1xx) // For Compose Activity
     implementation(libs.androidx.lifecycle.runtime.compose) // Lifecycle-aware components
     implementation(libs.ui.tooling.preview) // Preview support
-    implementation("androidx.compose.material:material-icons-extended:1.5.1")
-    implementation("com.google.accompanist:accompanist-coil:0.15.0")
-    implementation("io.coil-kt:coil-compose:2.6.0")
-    implementation("com.google.firebase:firebase-database-ktx:20.2.2")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.7.1")
-    implementation("androidx.compose.animation:animation:1.5.0")
-    implementation("androidx.compose.material3:material3:1.2.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
-
-    implementation("eu.agno3.jcifs:jcifs-ng:2.1.8")
-
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.accompanist.coil)
+    implementation(libs.coil.compose)
+    implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.firestore.ktx.v2514)
+    implementation(libs.androidx.animation)
+    implementation(libs.androidx.material3.v120)
+    implementation(libs.androidx.lifecycle.runtime.compose.v261)
+    implementation(libs.jcifs.ng)
     debugImplementation(libs.ui.tooling) // For debugging previews
 }
