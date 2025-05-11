@@ -135,4 +135,6 @@ dependencies {
     implementation("eu.agno3.jcifs:jcifs-ng:2.1.9")  // For SMB/CIFS support
 
     implementation("androidx.compose.runtime:runtime-livedata:1.5.0")  // Use the version that matches your Compose version
+
+    implementation("androidx.navigation:navigation-compose:2.7.4")
 }

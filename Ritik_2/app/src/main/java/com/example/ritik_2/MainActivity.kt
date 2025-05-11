@@ -21,7 +21,6 @@ import com.example.ritik_2.modules.UserProfile
 import com.example.ritik_2.smb.SMBActivity
 import com.example.ritik_2.ui.theme.ui.theme.ITConnectTheme
 import com.example.ritik_2.ui.theme.MainScreen
-import com.example.ritik_2.ui.theme.ViewComplaintsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -101,8 +100,8 @@ class MainActivity : ComponentActivity() {
     private fun handleCardClick(cardId: Int) {
         when (cardId) {
             1 -> startActivity(Intent(this, RegisterComplain::class.java))
-            2 -> startActivity(Intent(this, ViewComplaintsActivity::class.java))
-            //3 -> startActivity(Intent(this, SettingsActivity::class.java))
+            2 -> startActivity(Intent(this, ComplaintViewActivity::class.java))
+            //3 -> startActivity(Intent(this, ViewComplaintsScreen() { }::class.java))
             //4 -> startActivity(Intent(this, HelpSupportActivity::class.java))
             5 -> startActivity(Intent(this, SMBActivity::class.java))
             //6 -> startActivity(Intent(this, TechResourcesActivity::class.java))

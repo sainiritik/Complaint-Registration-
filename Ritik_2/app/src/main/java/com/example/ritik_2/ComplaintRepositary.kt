@@ -1,8 +1,7 @@
-package com.example.ritik_2
+/*package com.example.ritik_2
 
 import android.content.Context
 import android.widget.Toast
-import com.example.ritik_2.ui.theme.Complaint
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -68,4 +67,4 @@ class ComplaintRepository(private val context: Context) {
                 Toast.makeText(context, "Failed to delete complaint", Toast.LENGTH_SHORT).show()
             }
     }
-}
+}*/

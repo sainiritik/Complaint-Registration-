@@ -53,7 +53,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.theme.ViewComplaintsActivity"
+            android:name=".ComplaintViewActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
 
@@ -79,6 +79,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
 
 
     </application>
