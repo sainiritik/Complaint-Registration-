@@ -97,7 +97,6 @@ dependencies {
     implementation(libs.ui) // Core UI components
     implementation(libs.material3) // Material Design 3
     implementation(libs.androidx.activity.compose.v1xx) // For Compose Activity
-    implementation(libs.androidx.lifecycle.runtime.compose) // Lifecycle-aware components
     implementation(libs.ui.tooling.preview) // Preview support
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.accompanist.coil)
@@ -115,26 +114,33 @@ dependencies {
     implementation(libs.androidx.activity.compose.v181)
 
     // Jetpack Compose
-    implementation(libs.androidx.compose.bom.v20231001)
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation(platform(libs.androidx.compose.bom.v20231001))
+    implementation(libs.androidx.compose.ui.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.androidx.compose.ui.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3.material3)
+    implementation(libs.material.icons.extended)
 
     // ViewModel with Composer
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
     // Document File Provider
-    implementation("androidx.documentfile:documentfile:1.0.1")
+    implementation(libs.androidx.documentfile)
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation(libs.kotlinx.coroutines.android)
 
     // jCIFS for SMB functionality
-    implementation("eu.agno3.jcifs:jcifs-ng:2.1.9")  // For SMB/CIFS support
+    implementation(libs.jcifs.ng.v219)  // For SMB/CIFS support
 
-    implementation("androidx.compose.runtime:runtime-livedata:1.5.0")  // Use the version that matches your Compose version
+    implementation(libs.androidx.runtime.livedata)  // Use the version that matches your Compose version
 
-    implementation("androidx.navigation:navigation-compose:2.7.4")
+    // ViewModel + Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
+// Lifecycle-aware components for Compose
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+
+// Navigation for Compose
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+
 }
