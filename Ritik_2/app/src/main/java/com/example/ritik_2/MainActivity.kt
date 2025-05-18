@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import com.example.ritik_2.modules.MainViewModel
 import com.example.ritik_2.modules.UserProfile
-import com.example.ritik_2.smb.SMBActivity
 import com.example.ritik_2.ui.theme.ui.theme.ITConnectTheme
 import com.example.ritik_2.ui.theme.MainScreen
 import com.google.firebase.auth.FirebaseAuth

@@ -53,7 +53,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -661,22 +663,22 @@ fun ComplaintCard(
 @Composable
 fun CategoryPill(category: String) {
     val backgroundColor = when (category) {
-        "Municipal" -> Color(0xFFE6F0FF)
-        "Electricity" -> Color(0xFFFFF9E6)
-        "Water" -> Color(0xFFE6F6FF)
-        "Roads" -> Color(0xFFF2E6FF)
-        "Sanitation" -> Color(0xFFE6FFFA)
-        "Public Safety" -> Color(0xFFFFE6E6)
+        "IT" -> Color(0xFFE6F0FF)
+        "HR" -> Color(0xFFFFF9E6)
+        "Facilities" -> Color(0xFFE6F6FF)
+        "Security" -> Color(0xFFF2E6FF)
+        "Finance" -> Color(0xFFE6FFFA)
+        "Other" -> Color(0xFFFFE6E6)
         else -> Color(0xFFF0F0F0)
     }
 
     val textColor = when (category) {
-        "Municipal" -> Color(0xFF0066CC)
-        "Electricity" -> Color(0xFFCC8500)
-        "Water" -> Color(0xFF0099CC)
-        "Roads" -> Color(0xFF6600CC)
-        "Sanitation" -> Color(0xFF00CC99)
-        "Public Safety" -> Color(0xFFCC0000)
+        "IT" -> Color(0xFF0066CC)
+        "HR" -> Color(0xFFCC8500)
+        "Facilities" -> Color(0xFF0099CC)
+        "Security" -> Color(0xFF6600CC)
+        "Finance" -> Color(0xFF00CC99)
+        "Other" -> Color(0xFFCC0000)
         else -> Color.Gray
     }
 
@@ -736,6 +738,9 @@ fun EditComplaintDialog(
     var urgency by remember { mutableStateOf(complaint.urgency) }
     var category by remember { mutableStateOf(complaint.category) }
 
+    // Validation state
+    var isTitleValid by remember { mutableStateOf(true) }
+
     // Dropdowns
     var showStatusDropdown by remember { mutableStateOf(false) }
     var showUrgencyDropdown by remember { mutableStateOf(false) }
@@ -745,175 +750,350 @@ fun EditComplaintDialog(
     val urgencyOptions = listOf("Critical", "High", "Medium", "Low")
     val categoryOptions = listOf("IT", "HR", "Facilities", "Security", "Finance", "Other")
 
+    // Colors for status indicators
+    val statusColors = mapOf(
+        "Open" to Color.Red,
+        "In Progress" to Color(0xFFFFA500), // Orange
+        "Resolved" to Color.Green,
+        "Closed" to Color.Gray
+    )
+
+    // Colors for urgency indicators
+    val urgencyColors = mapOf(
+        "Critical" to Color.Red,
+        "High" to Color(0xFFFFA500), // Orange
+        "Medium" to Color(0xFFFFCC00), // Yellow
+        "Low" to Color.Green
+    )
+
     Dialog(onDismissRequest = onDismiss) {
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            shape = RoundedCornerShape(8.dp)
+            shape = RoundedCornerShape(16.dp),
+            shadowElevation = 8.dp
         ) {
-            Column(
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = "Edit Complaint",
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                OutlinedTextField(
-                    value = title,
-                    onValueChange = { title = it },
-                    label = { Text("Title") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Status dropdown
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    OutlinedTextField(
-                        value = status,
-                        onValueChange = {},
-                        label = { Text("Status") },
-                        readOnly = true,
-                        trailingIcon = {
-                            Icon(
-                                Icons.Default.ArrowDropDown,
-                                contentDescription = "Select status",
-                                modifier = Modifier.clickable { showStatusDropdown = true }
+                    .background(
+                        brush = androidx.compose.ui.graphics.Brush.verticalGradient(
+                            colors = listOf(
+                                colorResource(id = R.color.bright_orange).copy(alpha = 0.05f),
+                                Color.White
                             )
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Box(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .clickable { showStatusDropdown = true }
-                    )
-
-                    DropdownMenu(
-                        expanded = showStatusDropdown,
-                        onDismissRequest = { showStatusDropdown = false },
-                        modifier = Modifier.fillMaxWidth(0.9f)
-                    ) {
-                        statusOptions.forEach { option ->
-                            DropdownMenuItem(
-                                text = { Text(option) },
-                                onClick = {
-                                    status = option
-                                    showStatusDropdown = false
-                                }
-                            )
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Urgency dropdown
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    OutlinedTextField(
-                        value = urgency,
-                        onValueChange = {},
-                        label = { Text("Urgency") },
-                        readOnly = true,
-                        trailingIcon = {
-                            Icon(
-                                Icons.Default.ArrowDropDown,
-                                contentDescription = "Select urgency",
-                                modifier = Modifier.clickable { showUrgencyDropdown = true }
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Box(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .clickable { showUrgencyDropdown = true }
-                    )
-
-                    DropdownMenu(
-                        expanded = showUrgencyDropdown,
-                        onDismissRequest = { showUrgencyDropdown = false },
-                        modifier = Modifier.fillMaxWidth(0.9f)
-                    ) {
-                        urgencyOptions.forEach { option ->
-                            DropdownMenuItem(
-                                text = { Text(option) },
-                                onClick = {
-                                    urgency = option
-                                    showUrgencyDropdown = false
-                                }
-                            )
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Category dropdown
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    OutlinedTextField(
-                        value = category,
-                        onValueChange = {},
-                        label = { Text("Category") },
-                        readOnly = true,
-                        trailingIcon = {
-                            Icon(Icons.Default.ArrowDropDown,
-                                contentDescription = "Select category",
-                                modifier = Modifier.clickable { showCategoryDropdown = true }
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Box(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .clickable { showCategoryDropdown = true }
-                    )
-
-                    DropdownMenu(
-                        expanded = showCategoryDropdown,
-                        onDismissRequest = { showCategoryDropdown = false },
-                        modifier = Modifier.fillMaxWidth(0.9f)
-                    ) {
-                        categoryOptions.forEach { option ->
-                            DropdownMenuItem(
-                                text = { Text(option) },
-                                onClick = {
-                                    category = option
-                                    showCategoryDropdown = false
-                                }
-                            )
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    TextButton(onClick = onDismiss) {
-                        Text("Cancel")
-                    }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Button(
-                        onClick = { onSave(title, status, urgency, category) },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(id = R.color.bright_orange)
                         )
+                    )
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(24.dp)
+                ) {
+                    // Header with close button
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("Save")
+                        Text(
+                            text = "Edit Complaint",
+                            style = MaterialTheme.typography.headlineSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = colorResource(id = R.color.bright_orange)
+                        )
+
+                        IconButton(
+                            onClick = onDismiss,
+                            modifier = Modifier
+                                .size(32.dp)
+                                .clip(CircleShape)
+                                .background(Color.LightGray.copy(alpha = 0.2f))
+                        ) {
+                            Icon(
+                                Icons.Default.Close,
+                                contentDescription = "Close",
+                                tint = Color.DarkGray,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    // Title field with validation
+                    OutlinedTextField(
+                        value = title,
+                        onValueChange = {
+                            title = it
+                            isTitleValid = it.trim().isNotEmpty()
+                        },
+                        label = { Text("Title") },
+                        placeholder = { Text("Enter complaint title") },
+                        isError = !isTitleValid,
+                        supportingText = {
+                            if (!isTitleValid) {
+                                Text("Title cannot be empty", color = MaterialTheme.colorScheme.error)
+                            }
+                        },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = colorResource(id = R.color.bright_orange),
+                            focusedLabelColor = colorResource(id = R.color.bright_orange),
+                            cursorColor = colorResource(id = R.color.bright_orange)
+                        )
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Status dropdown with colored indicator
+                    Text(
+                        text = "Status",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(start = 4.dp, bottom = 4.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .border(
+                                width = 1.dp,
+                                color = Color.LightGray,
+                                shape = RoundedCornerShape(8.dp)
+                            )
+                            .clickable { showStatusDropdown = true }
+                            .padding(16.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(12.dp)
+                                        .clip(CircleShape)
+                                        .background(statusColors[status] ?: Color.Gray)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = status,
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                            }
+                            Icon(
+                                Icons.Default.ArrowDropDown,
+                                contentDescription = "Select status"
+                            )
+                        }
+
+                        DropdownMenu(
+                            expanded = showStatusDropdown,
+                            onDismissRequest = { showStatusDropdown = false },
+                            modifier = Modifier.fillMaxWidth(0.95f)
+                        ) {
+                            statusOptions.forEach { option ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .size(12.dp)
+                                                    .clip(CircleShape)
+                                                    .background(statusColors[option] ?: Color.Gray)
+                                            )
+                                            Spacer(modifier = Modifier.width(8.dp))
+                                            Text(option)
+                                        }
+                                    },
+                                    onClick = {
+                                        status = option
+                                        showStatusDropdown = false
+                                    },
+                                    colors = MenuDefaults.itemColors(
+                                        textColor = if (status == option)
+                                            colorResource(id = R.color.bright_orange) else Color.Black
+                                    )
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Urgency dropdown with colored indicator
+                    Text(
+                        text = "Urgency",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(start = 4.dp, bottom = 4.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .border(
+                                width = 1.dp,
+                                color = Color.LightGray,
+                                shape = RoundedCornerShape(8.dp)
+                            )
+                            .clickable { showUrgencyDropdown = true }
+                            .padding(16.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(12.dp)
+                                        .clip(CircleShape)
+                                        .background(urgencyColors[urgency] ?: Color.Gray)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = urgency,
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                            }
+                            Icon(
+                                Icons.Default.ArrowDropDown,
+                                contentDescription = "Select urgency"
+                            )
+                        }
+
+                        DropdownMenu(
+                            expanded = showUrgencyDropdown,
+                            onDismissRequest = { showUrgencyDropdown = false },
+                            modifier = Modifier.fillMaxWidth(0.95f)
+                        ) {
+                            urgencyOptions.forEach { option ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .size(12.dp)
+                                                    .clip(CircleShape)
+                                                    .background(urgencyColors[option] ?: Color.Gray)
+                                            )
+                                            Spacer(modifier = Modifier.width(8.dp))
+                                            Text(option)
+                                        }
+                                    },
+                                    onClick = {
+                                        urgency = option
+                                        showUrgencyDropdown = false
+                                    },
+                                    colors = MenuDefaults.itemColors(
+                                        textColor = if (urgency == option)
+                                            colorResource(id = R.color.bright_orange) else Color.Black
+                                    )
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Category dropdown with colored indicators
+                    Text(
+                        text = "Category",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(start = 4.dp, bottom = 4.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .border(
+                                width = 1.dp,
+                                color = Color.LightGray,
+                                shape = RoundedCornerShape(8.dp)
+                            )
+                            .clickable { showCategoryDropdown = true }
+                            .padding(16.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            CategoryPill(category = category)
+                            Icon(
+                                Icons.Default.ArrowDropDown,
+                                contentDescription = "Select category"
+                            )
+                        }
+
+                        DropdownMenu(
+                            expanded = showCategoryDropdown,
+                            onDismissRequest = { showCategoryDropdown = false },
+                            modifier = Modifier.fillMaxWidth(0.95f)
+                        ) {
+                            categoryOptions.forEach { option ->
+                                DropdownMenuItem(
+                                    text = { CategoryPill(category = option) },
+                                    onClick = {
+                                        category = option
+                                        showCategoryDropdown = false
+                                    },
+                                    colors = MenuDefaults.itemColors(
+                                        textColor = if (category == option)
+                                            colorResource(id = R.color.bright_orange) else Color.Black
+                                    )
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    // Action buttons
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Button(
+                            onClick = onDismiss,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.LightGray,
+                                contentColor = Color.Black
+                            ),
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(48.dp),
+                            shape = RoundedCornerShape(8.dp)
+                        ) {
+                            Text("Cancel")
+                        }
+
+                        Button(
+                            onClick = {
+                                if (title.trim().isNotEmpty()) {
+                                    onSave(title, status, urgency, category)
+                                } else {
+                                    isTitleValid = false
+                                }
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = colorResource(id = R.color.bright_orange)
+                            ),
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(48.dp),
+                            shape = RoundedCornerShape(8.dp),
+                            enabled = title.trim().isNotEmpty()
+                        ) {
+                            Text("Save Changes")
+                        }
                     }
                 }
             }

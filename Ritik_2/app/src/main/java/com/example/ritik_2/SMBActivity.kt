@@ -1,4 +1,4 @@
-package com.example.ritik_2.smb
+package com.example.ritik_2
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,18 +14,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.ritik_2.ui.theme.Ritik_2Theme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import com.example.ritik_2.modules.SMBFileItem
+import com.example.ritik_2.modules.SMBViewModel
+import com.example.ritik_2.ui.theme.ui.theme.Ritik_2Theme
 import kotlinx.coroutines.launch
 
 class SMBActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            com.example.ritik_2.ui.theme.ui.theme.Ritik_2Theme {
+            Ritik_2Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
