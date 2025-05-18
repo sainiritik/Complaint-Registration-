@@ -135,12 +135,12 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)  // Use the version that matches your Compose version
 
     // ViewModel + Compose
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation(libs.androidx.lifecycle.viewmodel.compose.v270)
 
 // Lifecycle-aware components for Compose
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation(libs.androidx.lifecycle.runtime.compose.v270)
 
 // Navigation for Compose
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation(libs.androidx.navigation.compose.v277)
 
 }
